@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from bs4 import BeautifulSoup
 
-# Initialize Chrome WebDriver
+
 driver = webdriver.Chrome()
 
 # URL of the Amazon Audible Best Sellers
@@ -15,13 +15,13 @@ driver.get(url)
 # Wait for page to load
 time.sleep(2)
 
-# Function to get product details from a category page
+
 def scrape_category_page():
-    # Get page source
+
     page_source = driver.page_source
     soup = BeautifulSoup(page_source, 'html.parser')
 
-    # Find all product containers
+
     products = soup.find_all("div", class_="p13n-sc-uncoverable-faceout")
     data = []
     for product in products:
@@ -59,7 +59,7 @@ def scrape_category_page():
         except AttributeError:
             book_img_link = "N/A"
         
-        # Append product details to list
+        # Append product 
         data.append([book_name, author, rating, num_ratings,price,book_img_link])
      
     # Create DataFrame from data
@@ -75,5 +75,5 @@ df.to_csv(output_file, index=False)
 print(f"DataFrame saved as '{output_file}' in the project folder.")
 
 
-# Close the browser
+
 driver.quit()
